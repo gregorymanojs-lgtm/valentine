@@ -1,0 +1,135 @@
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: linear-gradient(to bottom, #fff0f5, #ffc0cb);
+  text-align: center;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  cursor: none;
+}
+
+section {
+  min-height: 100vh;
+  padding: 60px;
+}
+
+/* Glow */
+.glow {
+  font-size: 3rem;
+  color: white;
+  text-shadow: 0 0 10px #ff4da6,
+               0 0 20px #ff1a75,
+               0 0 30px #ff66b2;
+}
+
+#countdown {
+  font-size: 1.5rem;
+  margin-top: 20px;
+  color: #b30059;
+}
+
+/* GALLERY */
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+.gallery-photo {
+  width: 320px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  transition: transform 0.5s ease;
+}
+
+.gallery-photo:hover {
+  transform: scale(1.05);
+}
+
+/* PROPOSAL PHOTO */
+.proposal-photo {
+  width: 300px;
+  border-radius: 20px;
+  margin: 20px 0;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+/* Buttons */
+button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 40px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.yes-btn {
+  background: #ff4d88;
+  color: white;
+}
+
+.no-btn {
+  background: white;
+  color: #ff4d88;
+  position: relative;
+}
+
+/* Fade animation */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: rise 5s linear forwards;
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+/* Fireworks */
+#fireworks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* Custom cursor */
+.cursor-heart {
+  position: fixed;
+  font-size: 22px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+}
+
+.trail-heart {
+  position: fixed;
+  font-size: 14px;
+  pointer-events: none;
+  animation: fadeOut 0.6s forwards;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
