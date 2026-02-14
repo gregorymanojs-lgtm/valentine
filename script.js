@@ -62,23 +62,76 @@ typeWriter();
 // FIREWORKS
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-function firework(x, y) {
+let particles = [];
+let fireworksActive = false;
+
+function createExplosion(x, y) {
   for (let i = 0; i < 80; i++) {
-    ctx.beginPath();
-    ctx.arc(x, y, 2, 0, Math.PI * 2);
-    ctx.fillStyle = "pink";
-    ctx.fill();
+    particles.push({
+      x: x,
+      y: y,
+      radius: Math.random() * 3 + 2,
+      color: `hsl(${Math.random() * 360}, 100%, 60%)`,
+      speedX: (Math.random() - 0.5) * 10,
+      speedY: (Math.random() - 0.5) * 10
+    });
   }
 }
 
+function animateFireworks() {
+  ctx.fillStyle = "rgba(0,0,0,0.1)";
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  particles.forEach((p, index) => {
+    p.x += p.speedX;
+    p.y += p.speedY;
+    p.radius *= 0.96;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+
+    if (p.radius < 0.5) {
+      particles.splice(index, 1);
+    }
+  });
+
+  requestAnimationFrame(animateFireworks);
+}
+
+animateFireworks(); // keep animation running
+
+function startCelebration() {
+  if (fireworksActive) return;
+  fireworksActive = true;
+
+  setInterval(() => {
+    const randomX = Math.random() * canvas.width;
+    const randomY = Math.random() * canvas.height / 2;
+    createExplosion(randomX, randomY);
+  }, 600); // burst every 0.6 seconds
+}
+
+let celebrated = false;
+
 function sayYes() {
-  alert("SHE SAID YES ❤️");
-  for (let i = 0; i < 15; i++) {
-    firework(Math.random() * canvas.width, Math.random() * canvas.height);
-  }
+  if (celebrated) return;
+  celebrated = true;
+
+  startCelebration();
+
+  const message = document.createElement("h2");
+  message.innerHTML = "SHE SAID YES ❤️";
+  message.style.color = "#ff1a75";
+  message.style.fontSize = "2rem";
+  message.style.marginTop = "20px";
+
+  document.querySelector(".proposal").appendChild(message);
 }
 
 // CUSTOM CURSOR
@@ -100,3 +153,4 @@ document.addEventListener("mousemove", (e) => {
 
   setTimeout(() => trail.remove(), 600);
 });
+
